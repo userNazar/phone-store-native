@@ -1,15 +1,17 @@
 import { View, StyleSheet, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeaderHome from '../components/home/HeaderHome';
 import GoodsHome from '../components/home/GoodsHome';
 import SliderCom from '../components/common/SliderCom';
 import SliderElement from '../components/home/SliderElement'
-import { IOffers } from '../interfaces';
+import { useAppDispatch } from '../store/hooks';
+import { fetchData } from '../store/slicers/productsList';
+
 
 
 export default function HomeScreen() {
-
-    const sliders: IOffers[] = [
+    const dispatch = useAppDispatch()
+    const sliders: any = [
         {
             id: 0,
             img: 'https://images.samsung.com/is/image/samsung/p6pim/cz/2202/gallery/cz-galaxy-s22-s901-sm-s901biddeue-530908340?$650_519_PNG$',
@@ -35,6 +37,12 @@ export default function HomeScreen() {
             description: 'fdsfasdfasfsafasdf'
         },
     ]
+
+
+    useEffect(() => {
+        dispatch(fetchData())
+    }, [])
+
     return (
         <View style={styles.container}>
             <HeaderHome />

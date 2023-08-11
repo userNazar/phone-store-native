@@ -6,45 +6,18 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import CardItem from '../components/common/CardItem';
 import SearchedShowComponent from '../components/common/SearchShowComponent';
+import { useAppSelector } from '../store/hooks';
 
 
 export default function WishList() {
 
 
-    const timesWISH = [
-        {
-            id: 1,
-        },
-        {
-            id: 2,
-        },
-        {
-            id: 3,
-        },
-        {
-            id: 4,
-        },
-        {
-            id: 5,
-        },
-
-        {
-            id: 6,
-        },
-        {
-            id: 7,
-        },
-
-        {
-            id: 8,
-        },
-
-    ]
+    const { listWish } = useAppSelector(state => state.productsWish)
 
     const [search, setSearch] = useState(false)
     const [searchInput, setSearchInput] = useState('')
 
-
+    
     const searchHandler = () => {
         setSearchInput('')
         setSearch(prev => !prev)
@@ -88,15 +61,24 @@ export default function WishList() {
                 {
                     search
                         ?
-                        <SearchedShowComponent searchInput={searchInput.trim()} />
+                        <SearchedShowComponent searchInput={searchInput.trim()} setSerchInput={setSearchInput}/>
                         :
-                        <FlatList
-                            data={timesWISH}
-                            renderItem={({ item }) => <CardItem />}
-                            keyExtractor={(item) => item.id.toString()}
-                            numColumns={2}
-                            columnWrapperStyle={{ justifyContent: 'space-between' }}
-                        />
+                        (
+                            listWish.length
+                                ?
+                                <FlatList
+                                    data={listWish}
+                                    renderItem={({ item }) => <CardItem item={item} likedProp={true}/>}
+                                    keyExtractor={(item) => item.id.toString()}
+                                    numColumns={2}
+                                    columnWrapperStyle={{ justifyContent: 'space-between' }}
+                                />
+                                :
+                                <View style={styles.containerTextEmpty}>
+                                    <View style={styles.border} />
+                                    <Text style={styles.textEmpty}>No valid items available.</Text>
+                                </View>
+                        )
                 }
 
             </View>
@@ -146,5 +128,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginHorizontal: 30,
         marginTop: 18
-    }
+    },
+    containerTextEmpty: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textEmpty: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: 'gray',
+    },
+    border: {
+        width: "100%",
+        height: 1,
+        backgroundColor: 'gray',
+        marginBottom: 10,
+    },
 })

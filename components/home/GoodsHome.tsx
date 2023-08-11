@@ -1,27 +1,21 @@
-import { FlatList, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import CardItem from '../common/CardItem'
+import GoodsList from './GoodsList';
+
+
+
 
 export default function GoodsHome() {
-  const [activeCategorie, setActivCategorie] = useState(1)
-  const [categories] = useState([
-    { id: 1, title: 'All', active: false },
-    { id: 2, title: 'Redmi', active: false },
-    { id: 3, title: 'Iphone', active: false },
-    { id: 4, title: 'Oppo', active: false },
-    { id: 5, title: 'Samsung', active: false },
-  ]);
 
-  const data = [
-    { id: 1, title: 'Item 1' },
-    { id: 2, title: 'Item 2' },
-    { id: 3, title: 'Item 3' },
-    { id: 4, title: 'Item 3' },
-    { id: 5, title: 'Item 3' },
-    { id: 6, title: 'Item 3' },
-    { id: 7, title: 'Item 3' },
-    { id: 8, title: 'Item 3' },
+  const [activeCategorie, setActivCategorie] = useState(1)
+  const categories = [
+    { id: 1, title: 'All', },
+    { id: 2, title: 'Redmi', },
+    { id: 3, title: 'iPhone', },
+    { id: 4, title: 'Oppo', },
+    { id: 5, title: 'Samsung', },
   ];
+
 
   return (
     <>
@@ -41,7 +35,7 @@ export default function GoodsHome() {
         {
           categories.map(cat =>
             <TouchableOpacity
-            key={cat.id}
+              key={cat.id}
               style={{
                 ...styles.filterElement,
                 backgroundColor: activeCategorie === cat.id ? 'black' : 'white'
@@ -54,14 +48,9 @@ export default function GoodsHome() {
         }
       </View>
 
-      <FlatList
-        style={{ paddingHorizontal: 30, marginTop: 10 }}
-        data={data}
-        renderItem={({ item }) => <CardItem />}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-      />
+
+      <GoodsList sortByName={categories[activeCategorie - 1].title}/>
+
     </>
   )
 }

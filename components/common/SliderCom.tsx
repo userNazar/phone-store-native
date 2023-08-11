@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import { IOffers } from '../../interfaces';
 
-export default function SliderCom({ sliders, SliderElement }: { sliders: IOffers[], SliderElement: any }) {
+
+export default function SliderCom({ sliders, SliderElement }: { sliders: any, SliderElement: any }) {
   const flatListRef = useRef<FlatList<any>>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slidersIndex, setCurrentSlidersIndex] = useState([...sliders])

@@ -1,9 +1,13 @@
-export interface IOffers {
-    id: number;
+
+export interface Product {
+    id: string;
     img: string;
-    percent: number;
-    description: string;
+    name: string;
+    price: number;
+    rating: number;
+    description: any
 }
+
 
 
 
